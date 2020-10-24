@@ -8,7 +8,7 @@ public class City {
     private String name;
     private UUID stateId;
 
-    public City(String cityName, UUID stateId){
+    public City(String cityName, UUID stateId) {
         this.id = UUID.randomUUID();
         this.name = cityName;
         this.stateId = stateId;

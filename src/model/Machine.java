@@ -11,9 +11,9 @@ public class Machine {
     private Integer areaCode;
     private List<Vote> votedList;
     private List<Party> partyList;
-    private Map<String,Integer> partyVoteCountMap;
+    private Map<String, Integer> partyVoteCountMap;
 
-    public Machine(String stateName, Integer areaCode){
+    public Machine(String stateName, Integer areaCode) {
         this.state = State.findByName(stateName);
         this.areaCode = areaCode;
         partyVoteCountMap = new HashMap<>();
@@ -21,13 +21,13 @@ public class Machine {
         partyList = new ArrayList<>();
     }
 
-    public void addToVotedList(Vote vote){
+    public void addToVotedList(Vote vote) {
         votedList.add(vote);
     }
 
-    public boolean allowedVotingHere(User user){
-        for(Vote vote: votedList){
-            if(vote.getUser().getVoter_id() == user.getVoter_id()){
+    public boolean allowedVotingHere(User user) {
+        for (Vote vote : votedList) {
+            if (vote.getUser().getVoter_id() == user.getVoter_id()) {
                 return true;
             }
         }
@@ -43,6 +43,7 @@ public class Machine {
         //get all vote from different areaCode for state
         return votedList;
     }
+
     public void addToPartyList(Party party) {
         this.partyList.add(party);
     }
@@ -52,10 +53,10 @@ public class Machine {
     }
 
     public void addVoteCountToParty(String partyName, Integer increment) {
-        if(!partyVoteCountMap.containsKey(partyName)){
-            partyVoteCountMap.put(partyName,increment);
-        }else{
-            partyVoteCountMap.put(partyName, partyVoteCountMap.get(partyName)+1);
+        if (!partyVoteCountMap.containsKey(partyName)) {
+            partyVoteCountMap.put(partyName, increment);
+        } else {
+            partyVoteCountMap.put(partyName, partyVoteCountMap.get(partyName) + 1);
         }
     }
 }
