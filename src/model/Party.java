@@ -8,7 +8,7 @@ public class Party {
     private String name;
     private String signImageUrl;
 
-    public Party(String name, String signImageUrl){
+    public Party(String name, String signImageUrl) {
         this.Id = UUID.randomUUID();
         this.name = name;
         this.signImageUrl = signImageUrl;

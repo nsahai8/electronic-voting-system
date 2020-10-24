@@ -8,17 +8,17 @@ public class State {
     private String name;
     private UUID countryId;
 
-    public State(String stateName, UUID countryId){
+    public State(String stateName, UUID countryId) {
         this.Id = UUID.randomUUID();
         this.name = stateName;
         this.countryId = countryId;
     }
 
-    public String getName() {
-        return name;
+    public static State findByName(String stateName) {
+        return new State(stateName, UUID.randomUUID());//assuming countryId as random for now
     }
 
-    public static State findByName(String stateName){
-        return new State(stateName,UUID.randomUUID());//assuming countryId as random for now
+    public String getName() {
+        return name;
     }
 }
