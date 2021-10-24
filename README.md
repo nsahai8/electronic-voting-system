@@ -6,4 +6,4 @@ If any user votes twice, to different parties It reports the user as a blacklist
 At last it would count these votes. And declare the winner.
 It uses OOP concepts so that the design remains the same for all use cases.
 
-[Demo App](https://github.com/nsahai8/electronic-voting-system/blob/master/src/demo/DemoApp.java) is given as an example.
+[Demo App](https://github.com/nsahai8/electronic-voting-system/blob/master/src/main/java/com/demo/DemoApp.java) is given as an example.
