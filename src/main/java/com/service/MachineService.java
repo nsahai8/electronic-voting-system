@@ -1,6 +1,9 @@
-package service;
+package com.service;
 
-import model.*;
+import com.model.Machine;
+import com.model.Party;
+import com.model.User;
+import com.model.Vote;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +20,9 @@ public class MachineService {
     public boolean vote(User user, Party party){
 
         if(!user.isBlackListed() && machine.allowedVotingHere(user)){
-            if(user.hasVoted()){
+            if(user.isHasVoted()){
                 System.out.println(user.getName()+", You have voted again"); //  for now marking all votes voting twice as blacklisted even voting the same party in same area
-                user.markBlackListed();
+                user.setBlackListed(true);
                 return false;
             }
             Vote vote = new Vote(user, party);
@@ -27,7 +30,7 @@ public class MachineService {
                 return false;
             }
             machine.addVoteCountToParty(party.getName(),1);
-            user.setAsVoted();
+            user.setHasVoted(true);
             System.out.println(user.getName()+" voted successfully");
             return true;
         }
