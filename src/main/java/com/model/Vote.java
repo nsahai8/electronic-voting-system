@@ -10,7 +10,7 @@ public class Vote {
     private User user;
     private Party party;
 
-    public Vote(User user, Party party){
+    public Vote(User user, Party party) {
         this.id = UUID.randomUUID();
         this.user = user;
         this.party = party;
@@ -24,9 +24,9 @@ public class Vote {
         return party;
     }
 
-    public static List<Vote> getVoterListByAreaCode(List<User> userList ){ // list will come from dao
+    public static List<Vote> getVoterListByAreaCode(List<User> userList) { // list will come from dao
         List<Vote> voterList = new ArrayList<>();
-        for(User user: User.findAllUsersByAreaCode(userList)){
+        for (User user : User.findAllUsersByAreaCode(userList)) {
             voterList.add(new Vote(user, null));
         }
         return voterList;

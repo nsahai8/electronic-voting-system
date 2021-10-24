@@ -4,11 +4,11 @@ import java.util.UUID;
 
 public class City {
 
-    private UUID id;
-    private String name;
-    private UUID stateId;
+    private final UUID id;
+    private final String name;
+    private final UUID stateId;
 
-    public City(String cityName, UUID stateId){
+    public City(String cityName, UUID stateId) {
         this.id = UUID.randomUUID();
         this.name = cityName;
         this.stateId = stateId;

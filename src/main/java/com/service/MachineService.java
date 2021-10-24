@@ -4,63 +4,64 @@ import com.model.Machine;
 import com.model.Party;
 import com.model.User;
 import com.model.Vote;
+import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class MachineService {
 
     Machine machine;
 
-    public MachineService(String state, Integer areaCode){
-        this.machine = new Machine(state,areaCode);
+    public MachineService(String state, Integer areaCode) {
+        this.machine = new Machine(state, areaCode);
     }
 
-    public boolean vote(User user, Party party){
+    public boolean vote(User user, Party party) {
 
-        if(!user.isBlackListed() && machine.allowedVotingHere(user)){
-            if(user.isHasVoted()){
-                System.out.println(user.getName()+", You have voted again"); //  for now marking all votes voting twice as blacklisted even voting the same party in same area
+        if (!user.isBlackListed() && machine.allowedVotingHere(user)) {
+            if (user.isHasVoted()) {
+                System.out.println(user.getName() + ", You have voted again"); //  for now marking all votes voting twice as blacklisted even voting the same party in same area
                 user.setBlackListed(true);
                 return false;
             }
             Vote vote = new Vote(user, party);
-            if(!validParty(party)){
+            if (!validParty(party)) {
                 return false;
             }
-            machine.addVoteCountToParty(party.getName(),1);
+            machine.addVoteCountToParty(party.getName(), 1);
             user.setHasVoted(true);
-            System.out.println(user.getName()+" voted successfully");
+            System.out.println(user.getName() + " voted successfully");
             return true;
         }
-        if(!machine.allowedVotingHere(user)){
-            System.out.println(user.getName()+", You are not in voters list");
+        if (!machine.allowedVotingHere(user)) {
+            System.out.println(user.getName() + ", You are not in voters list");
         }
         return false;
     }
 
-    public String findWinnerParty(){
+    public String findWinnerParty() {
 
         List<Party> partyList = machine.getPartyList();
         List<Vote> voteList = machine.getVotedList();
-        Map<String,Integer> partyVoteCountList = machine.getPartyVoteCountMap();
+        Map<String, Integer> partyVoteCountList = machine.getPartyVoteCountMap();
 
 
         int voteCount = 0;
         String winner = null;
         int winnerPartyCount = 0;
-        for(Map.Entry maping:partyVoteCountList.entrySet()){
+        for (Map.Entry maping : partyVoteCountList.entrySet()) {
 
-            if((int)maping.getValue() > voteCount){
-                voteCount = (int)maping.getValue();
+            if ((int) maping.getValue() > voteCount) {
+                voteCount = (int) maping.getValue();
                 winnerPartyCount = 1;
                 winner = (String) maping.getKey();
-            }else if((int)maping.getValue() == voteCount){
+            } else if ((int) maping.getValue() == voteCount) {
                 winnerPartyCount++;
             }
 
-            if(winnerPartyCount > 1){
+            if (winnerPartyCount > 1) {
                 winner = null;
             }
         }
@@ -68,15 +69,15 @@ public class MachineService {
         return winner;
     }
 
-    public void addToPartyList(Party party){
-        if(party!=null){
+    public void addToPartyList(Party party) {
+        if (party != null) {
             machine.addToPartyList(party);
         }
     }
 
-    private boolean validParty(Party party){
-        for(Party partyFromList: machine.getPartyList()){
-            if(partyFromList.getName().equalsIgnoreCase(party.getName())){
+    private boolean validParty(Party party) {
+        for (Party partyFromList : machine.getPartyList()) {
+            if (partyFromList.getName().equalsIgnoreCase(party.getName())) {
                 return true;
             }
         }
